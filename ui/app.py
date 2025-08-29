@@ -10,11 +10,6 @@ confusion_matrix, RocCurveDisplay
 )
 
 
-def handle_model():
-    with open("../models/final_model.pkl", "rb") as f:
-        model = pkl.load(f)
-
-
 def display_name_id_mapping():
     mapping = {}
     mapping['sex'] = [
@@ -55,8 +50,10 @@ def display_name_id_mapping():
 
 
 def handle_input():
+    # Get mapping for selectbox options
     mapping = display_name_id_mapping()
 
+    # Input fields
     age = st.number_input("Age", min_value=20, max_value=100, value=50)
     sex = st.selectbox("Sex",  options=mapping['sex'], format_func=lambda record: record["display_name"])["id"]
     cp = st.selectbox("Chest Pain Type", options=mapping['cp'], format_func=lambda record: record["display_name"])["id"]
@@ -88,11 +85,40 @@ def handle_input():
         'thal': [thal]
     })
 
+    return input_data
+
+def handle_prediction(input_data):
+    # Load model
+    with open("../models/final_model.pkl", "rb") as f:
+        model = pkl.load(f)
+
+    # Predict when button is clicked
+    if st.button("Predict", width=200):
+        prediction = model.predict(input_data)[0]
+        prob = model.predict_proba(input_data)[0][int(prediction)]
+
+        if prediction == 0:
+            st.success(f"The model predicts that you do NOT have heart disease. (Probability: {prob:.0%})")
+        elif prediction == 1:
+            st.warning(f"The model predicts that you HAVE MILD heart disease. (Probability: {prob:.0%})")
+        elif prediction == 2:
+            st.warning(f"The model predicts that you HAVE MODERATE heart disease. (Probability: {prob:.0%})")
+        elif prediction == 3:
+            st.error(f"The model predicts that you HAVE SEVERE heart disease. (Probability: {prob:.0%})")
+        elif prediction == 4:
+            st.error(f"The model predicts that you HAVE CRITICAL heart disease. (Probability: {prob:.0%})")
+        else:
+            st.error("Unexpected prediction value.")
+            
+        
+
 
 def main():
     st.set_page_config(page_title="Heart Disease Predictor", layout="wide")
     st.title("❤️ Heart Disease: Prediction & Exploration")
-    handle_input()
+    input_data = handle_input()
+    handle_prediction(input_data)
+
 
 
 if __name__ == "__main__":
