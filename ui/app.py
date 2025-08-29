@@ -9,7 +9,8 @@ accuracy_score, precision_score, recall_score, f1_score, roc_auc_score,
 confusion_matrix, RocCurveDisplay
 )
 
-
+# Caching for display name to id mapping
+@st.cache_data
 def display_name_id_mapping():
     mapping = {}
     mapping['sex'] = [
@@ -87,11 +88,14 @@ def handle_input():
 
     return input_data
 
-def handle_prediction(input_data):
-    # Load model
+# Load model with caching
+@st.cache_resource
+def load_model():
     with open("../models/final_model.pkl", "rb") as f:
         model = pkl.load(f)
-
+        return model
+    
+def handle_prediction(model, input_data):
     # Predict when button is clicked
     if st.button("Predict", width=200):
         prediction = model.predict(input_data)[0]
@@ -110,16 +114,13 @@ def handle_prediction(input_data):
         else:
             st.error("Unexpected prediction value.")
             
-        
-
-
 def main():
     st.set_page_config(page_title="Heart Disease Predictor", layout="wide")
     st.title("❤️ Heart Disease: Prediction & Exploration")
+    st.subheader("This application predicts the presence and severity of heart disease based on user-provided health metrics.")
+    model = load_model()
     input_data = handle_input()
-    handle_prediction(input_data)
-
-
+    handle_prediction(model, input_data)
 
 if __name__ == "__main__":
     main()
