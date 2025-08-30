@@ -53,21 +53,22 @@ def display_name_id_mapping():
 def handle_input():
     # Get mapping for selectbox options
     mapping = display_name_id_mapping()
+    label_latex = lambda label, expr="large": rf"$\textsf{{\{expr} {label}}}$"
 
     # Input fields
-    age = st.number_input("Age", min_value=20, max_value=100, value=50)
-    sex = st.selectbox("Sex",  options=mapping['sex'], format_func=lambda record: record["display_name"])["id"]
-    cp = st.selectbox("Chest Pain Type", options=mapping['cp'], format_func=lambda record: record["display_name"])["id"]
-    trestbps = st.number_input("Resting Blood Pressure", min_value=80, max_value=200, value=120)
-    chol = st.number_input("Serum Cholesterol (mg/dl)", min_value=100, max_value=600, value=200)
-    fbs = st.selectbox("Fasting Blood Sugar > 120 mg/dl",  options=mapping['fbs'], format_func=lambda record: record["display_name"])["id"]
-    restecg = st.selectbox("Resting ECG Results",  options=mapping['restecg'], format_func=lambda record: record["display_name"])["id"]
-    thalach = st.number_input("Max Heart Rate Achieved", min_value=60, max_value=220, value=150)
-    exang = st.selectbox("Exercise Induced Angina",  options=mapping['exang'], format_func=lambda record: record["display_name"])["id"]
-    oldpeak = st.number_input("ST Depression", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
-    slope = st.selectbox("Slope of ST Segment",  options=mapping['slope'], format_func=lambda record: record["display_name"])["id"]
-    ca = st.selectbox("Major Vessels (0-3) Colored by Flourosopy", [0, 1, 2, 3])
-    thal = st.selectbox("Thalassemia",  options=mapping['thal'], format_func=lambda record: record["display_name"])["id"]
+    age = st.number_input(label_latex("Age"), min_value=20, max_value=100, value=50)
+    sex = st.radio(label_latex("Sex"),  options=mapping['sex'], format_func=lambda record: record["display_name"])["id"]
+    cp = st.selectbox(label_latex("Chest Pain Type"), options=mapping['cp'], format_func=lambda record: record["display_name"])["id"]
+    trestbps = st.number_input(label_latex("Resting Blood Pressure"), min_value=80, max_value=200, value=120)
+    chol = st.number_input(label_latex("Serum Cholesterol (mg/dl)"), min_value=100, max_value=600, value=200)
+    fbs = st.radio(label_latex("Fasting Blood Sugar > 120 mg/dl"),  options=mapping['fbs'], format_func=lambda record: record["display_name"])["id"]
+    restecg = st.selectbox(label_latex("Resting ECG Results"),  options=mapping['restecg'], format_func=lambda record: record["display_name"])["id"]
+    thalach = st.number_input(label_latex("Max Heart Rate Achieved"), min_value=60, max_value=220, value=150)
+    exang = st.radio(label_latex("Exercise Induced Angina"),  options=mapping['exang'], format_func=lambda record: record["display_name"])["id"]
+    oldpeak = st.number_input(label_latex("ST Depression"), min_value=0.0, max_value=10.0, value=1.0, step=0.1)
+    slope = st.selectbox(label_latex("Slope of ST Segment"),  options=mapping['slope'], format_func=lambda record: record["display_name"])["id"]
+    ca = st.selectbox(label_latex("Major Vessels (0-3) Colored by Flourosopy"), [0, 1, 2, 3])
+    thal = st.selectbox(label_latex("Thalassemia"),  options=mapping['thal'], format_func=lambda record: record["display_name"])["id"]
 
     # Collect input in DataFrame
     input_data = pd.DataFrame({
