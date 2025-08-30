@@ -13,38 +13,40 @@ confusion_matrix, RocCurveDisplay
 @st.cache_data
 def display_name_id_mapping():
     mapping = {}
+    entry = lambda id, display_name: {"id": id, "display_name": display_name}
+
     mapping['sex'] = [
-    {"id": 1, "display_name": "Male"},
-    {"id": 0, "display_name": "Female"}
+        entry(1, 'Male'),
+        entry(0, 'Female')
     ]
     mapping['cp'] = [
-    {"id": 1, "display_name": "Typical Angina"},
-    {"id": 2, "display_name": "Atypical Angina"},
-    {"id": 3, "display_name": "Non-anginal pain"},
-    {"id": 4, "display_name": "Asymptomatic"},
+        entry(1, 'Typical Angina'),
+        entry(2, 'Atypical Angina'),
+        entry(3, 'Non-anginal pain'),
+        entry(4, 'Asymptomatic')
     ]
     mapping['fbs'] = [
-    {"id": 0, "display_name": "False"},
-    {"id": 1, "display_name": "True"}
+        entry(0, 'False'),
+        entry(1, 'True')
     ]
     mapping['restecg'] = [
-    {"id": 0, "display_name": "Normal"},
-    {"id": 1, "display_name": "ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV)"},
-    {"id": 2, "display_name": "Left ventricular hypertrophy"}
+        entry(0, 'Normal'),
+        entry(1, 'Having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV)'),
+        entry(2, 'Showing probable or definite left ventricular hypertrophy by Estes\' criteria')
     ]
     mapping['exang'] = [
-    {"id": 0, "display_name": "No"},    
-    {"id": 1, "display_name": "Yes"}
+        entry(0, 'No'),
+        entry(1, 'Yes')
     ]
     mapping['slope'] = [
-    {"id": 1, "display_name": "Upsloping"},
-    {"id": 2, "display_name": "Flat"},
-    {"id": 3, "display_name": "Downsloping"}
+        entry(1, 'Upsloping'),
+        entry(2, 'Flat'),
+        entry(3, 'Downsloping')
     ]
     mapping['thal'] = [
-    {"id": 3, "display_name": "Normal"},
-    {"id": 6, "display_name": "Fixed Defect"},
-    {"id": 7, "display_name": "Reversible Defect"}
+        entry(3, 'Normal'),
+        entry(6, 'Fixed Defect'),
+        entry(7, 'Reversible Defect')
     ]
     return mapping
     
@@ -53,6 +55,7 @@ def display_name_id_mapping():
 def handle_input():
     # Get mapping for selectbox options
     mapping = display_name_id_mapping()
+    # LaTeX label formatter
     label_latex = lambda label, expr="large": rf"$\textsf{{\{expr} {label}}}$"
 
     # Input fields
