@@ -5,6 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pickle as pkl
 
+from pathlib import Path
 from ucimlrepo import fetch_ucirepo
 
 @st.cache_data
@@ -105,7 +106,9 @@ def handle_input():
 # Load model with caching
 @st.cache_resource
 def load_model():
-    with open("../models/final_model.pkl", "rb") as f:
+    # Get path relative to this script's folder
+    model_path = Path(__file__).resolve().parent.parent / "models" / "final_model.pkl"
+    with open(model_path, "rb") as f:
         model = pkl.load(f)
         return model
     

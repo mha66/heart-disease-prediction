@@ -1,0 +1,89 @@
+Ngrok Setup Guide
+
+This document explains how to set up and use Ngrok to expose your local Streamlit app (or any local server) to the internet.
+
+1. Download and Install Ngrok
+- Visit: https://ngrok.com/download
+- Download the version for your operating system (Windows, macOS, or Linux).
+- Extract the downloaded file.
+- (Windows) Move ngrok.exe to a folder like C:\ngrok and add it to your system PATH.
+
+Alternatively, install via pip (Python users):
+pip install pyngrok
+
+---
+
+2. Sign Up for a Free Account
+- Go to https://ngrok.com
+- Sign up for a free account.
+- After signing up, copy your Authtoken from the Ngrok dashboard.
+
+---
+
+3. Configure Ngrok with Your Authtoken
+Run the following command in your terminal (replace with your actual token):
+ngrok config add-authtoken YOUR_AUTHTOKEN
+
+
+This will create a configuration file in your user directory so you don’t have to re-enter the token every time.
+
+---
+
+4. Run Your Streamlit App
+Navigate to your project folder and start Streamlit:
+streamlit run app.py
+
+
+By default, Streamlit runs at: http://localhost:8501
+
+---
+
+5. Start Ngrok Tunnel
+In a new terminal, run:
+ngrok http 8501
+
+
+You will see output similar to:
+Forwarding    https://1234-56-78-910-11.ngrok-free.app -> http://localhost:8501
+
+
+Copy the HTTPS link and share it — this is your public app URL.
+
+---
+
+6. Keep Processes Running
+Remember: Both Streamlit and Ngrok must stay running for the app to remain accessible.
+
+
+- If Streamlit stops → the app goes down.  
+- If Ngrok stops → the public link stops working.
+
+
+---
+
+7. Optional: Run The Included batch file
+To quickly run both Streamlit and Ngrok, run the "run_app.bat" batch file found in "deployment" subdirectory
+
+
+The batch script will automatically open two new terminal windows and run Streamlit and Ngrok
+
+
+(Note: Do not move the "run_app.bat" batch file, "app.py" file, or "final_model.pkl" or else the script won't work properly)
+
+---
+
+8. Optional: Use a Custom Subdomain
+To get a permanent subdomain (instead of a random URL), run:
+ngrok http -subdomain=my-heart-app 8501
+
+
+Your app will be available at:
+https://my-heart-app.ngrok-free.app
+
+
+(Note: This requires an Ngrok account and may depend on your plan.)
+
+---
+
+
+Done! You now have Ngrok set up and can share your local Streamlit app publicly.
