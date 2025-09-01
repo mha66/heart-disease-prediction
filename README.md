@@ -112,7 +112,10 @@ Results are stored in [`results/`](./results).
 
 ## 🖼️ App Preview
 <p align="center">
-  <img src="docs/screenshot_ui.png" alt="App Screenshot" width="600">
+<img width="2428" height="1277" alt="Screenshot 2025-09-02 015847" src="https://github.com/user-attachments/assets/280abe4d-0168-404a-bed5-f3e06e50a597" />
+<img width="2429" height="1103" alt="Screenshot 2025-09-02 015943" src="https://github.com/user-attachments/assets/65b3ec59-df20-4804-bbd0-3c13adef522e" />
+<img width="2467" height="1101" alt="Screenshot 2025-09-02 020035" src="https://github.com/user-attachments/assets/39e4020d-7766-46bc-9008-cb3e18a9642c" />
+<img width="2468" height="950" alt="Screenshot 2025-09-02 020122" src="https://github.com/user-attachments/assets/7d1f4a0e-11d6-47e5-865f-a9576331962c" />
 </p>
 
 ---
