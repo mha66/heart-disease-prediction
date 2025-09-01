@@ -18,6 +18,13 @@ It includes data preprocessing, dimensionality reduction, feature selection, sup
 
 ---
 
+## 🤖 Live Demo
+
+You can try the app here: [Heart Disease Prediction App](https://likely-holy-tapir.ngrok-free.app)  
+*(Note: Ngrok links are temporary and may expire. Run locally if the link is unavailable.)*
+
+---
+
 ## 📂 Project Structure
 ```
 HEART_DISEASE_PROJECT
